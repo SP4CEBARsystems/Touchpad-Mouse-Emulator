@@ -11,16 +11,16 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ;#If WinActive("Roblox") || WinActive("Minecraft") || WinActive("SolidWorks")
 
-/::                           ;turn this hotkey off when you press "/" to chat
+~/::                           ;turn this hotkey off when you press "/" to chat
+; MsgBox You clicked the /.
 Suspend, On
-Send /
-Pause,On, 1
+; Pause,On, 1
 Return
 
-Esc::                         ;turn this hotkey on when you press "escape" to exit chat
+~Esc::                         ;turn this hotkey on when you press "escape" to exit chat
+; MsgBox You clicked the escape.
 Suspend, Off
-Send {Esc}
-Pause,Off, 1
+; Pause,Off, 1
 Return
 
 AppsKey::
