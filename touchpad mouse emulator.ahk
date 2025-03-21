@@ -11,11 +11,6 @@ Return
 Suspend, Off
 Return
 
-AppsKey::
-Suspend, Toggle
-Pause,Toggle, 1
-return
-
 j::LButton
 k::MButton
 l::RButton
