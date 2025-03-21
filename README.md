@@ -1,5 +1,5 @@
 # Touchpad Mouse Emulator
-This allows applications that would require a mouse to use to be operable from a laptop's touchpad, these applkications include most games like Minecraft and Fortnite and CAD software like SolidWorks. It is made in [AutoHotKey V1](https://www.autohotkey.com/). 
+This allows applications that would require a mouse to use to be operable from a laptop's touchpad, these applications include most games like Minecraft and Fortnite and CAD software like SolidWorks. It is made in [AutoHotKey V1](https://www.autohotkey.com/). 
 
 This is achieved by mapping the `j`, `k`, and `l` keys to the `left`, `middle`, and `right` mouse buttons respectively, allowing the user to press these buttons easily while controlling the touchpad with their thumb. Additionally, the `i` and `o` buttons are mapped to scrolling down and up respectively.
 
