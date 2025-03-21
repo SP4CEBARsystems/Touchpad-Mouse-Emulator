@@ -23,8 +23,10 @@ When an AHK macro is running, you can stop it from its tray icon.
 | l | right mouse button |
 | i | scroll down |
 | o | scroll up |
+| m | additional left mouse button |
 
 ### Activation
 | key | action |
 | / | disable macro to allow typing (like chatting) |
 | escape | enable this maco to allow mouse emulation |
+| menu key | toggle this macro on or off |
