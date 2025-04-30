@@ -7,6 +7,10 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 Suspend, On
 Return
 
+~LWin::                           ;turn this hotkey off when you press "/" to chat
+Suspend, On
+Return
+
 ~Esc::                         ;turn this hotkey on when you press "escape" to exit chat
 Suspend, Off
 Return
