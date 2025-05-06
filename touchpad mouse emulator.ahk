@@ -4,16 +4,14 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ~/::                           ;turn this hotkey off when you press "/" to chat
-Suspend, On
-Return
-
-~LWin::                           ;turn this hotkey off when you press "/" to chat
-Suspend, On
-Return
+~LWin::                        ;turn this hotkey off when you press "left windows" to open a program
+    Suspend, On
+    Return
 
 ~Esc::                         ;turn this hotkey on when you press "escape" to exit chat
-Suspend, Off
-Return
+~Enter::                       ;turn this hotkey on when you press "enter" to select a program
+    Suspend, Off
+    Return
 
 j::LButton
 k::MButton
