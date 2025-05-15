@@ -27,5 +27,9 @@ When an AHK macro is running, you can stop it from its tray icon.
 ### Activation
 | key | action |
 |---|---|
-| `/` or `left windows key` | disable macro to allow typing (like chatting) |
+| `/`, `backspace` or `left windows key` | disable macro to allow typing (like chatting) |
 | `escape` or `enter` | enable this maco to allow mouse emulation |
+| `right alt` | toggle the activation of this maco |
+
+## Ideas
+If it were possible to detect if a finger was resting on the touchpad then that could be used to enable this macro.
