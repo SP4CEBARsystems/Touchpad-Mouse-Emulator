@@ -7,6 +7,10 @@ The `j`, `k`, and `l` keys were chosen because these are part of the touch-typin
 
 The `/` key is used to disable this macro (to be able to type) and the `escape` key to enable it again. Both the `/` and `escape` keys are not captured and will continue to work as expected within your application. These keys were chosen because they are used in some games to access or close the chat.
 
+## Platform
+- This project is made in AutoHotKey and therefore runs exclusively on Windows
+- For Linux refer to [Auto-Touchpad-Mouse-Emulator](https://github.com/SP4CEBARsystems/Auto-Touchpad-Mouse-Emulator)
+
 ## Installation
 I have provided an [executable](https://github.com/SP4CEBARsystems/Touchpad-Mouse-Emulator/blob/main/touchpad%20mouse%20emulator.exe) for this macro that you can download and run if you trust me. I have to note that most AHK macros are flagged as trojans by some security vendors on [VirusTotal](https://www.virustotal.com), [here is the VirusTotal report for this executable](https://www.virustotal.com/gui/file/61a640de9c9ea98182e44c6b7d0b42dacffd309f34918fbc3ade055e33ad2f47?nocache=1). If you don't trust me, [review the code](https://github.com/SP4CEBARsystems/Touchpad-Mouse-Emulator/blob/main/touchpad%20mouse%20emulator.ahk), [download AutoHotKey V1](https://www.autohotkey.com/download/ahk-install.exe), and [compile your own executable](https://www.autohotkey.com/docs/v1/Scripts.htm#ahk2exe-run). If you don't trust AutoHotKey check out [this report](https://safeweb.norton.com/report/show?url=autohotkey.com%2Fdownload).
 
