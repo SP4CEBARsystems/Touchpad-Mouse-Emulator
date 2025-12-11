@@ -30,6 +30,7 @@ DetectMovement:
 
     dx := x - lastX
     dy := y - lastY
+    holdTime := 1000
 
     if (dx != 0 or dy != 0)
     {
@@ -39,7 +40,7 @@ DetectMovement:
     }
     else
     {
-        if (movementActive && (A_TickCount - lastMoveTick > 500))
+        if (movementActive && (A_TickCount - lastMoveTick > holdTime))
             movementActive := false
     }
 
