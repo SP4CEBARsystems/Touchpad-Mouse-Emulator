@@ -39,48 +39,54 @@ Return
 ; Mouse button mappings (latched)
 ; -----------------------------
 *j::
-    HandleMouseKeyDown("j", "LButton")
+    HandleKeyDown("j", "LButton")
 Return
 *j up::
-    HandleMouseKeyUp("j", "LButton")
+    HandleKeyUp("j", "LButton")
 Return
 
 *k::
-    HandleMouseKeyDown("k", "MButton")
+    HandleKeyDown("k", "MButton")
 Return
 *k up::
-    HandleMouseKeyUp("k", "MButton")
+    HandleKeyUp("k", "MButton")
 Return
 
 *l::
-    HandleMouseKeyDown("l", "RButton")
+    HandleKeyDown("l", "RButton")
 Return
 *l up::
-    HandleMouseKeyUp("l", "RButton")
+    HandleKeyUp("l", "RButton")
 Return
 
 *m::
-    HandleMouseKeyDown("m", "LButton")
+    HandleKeyDown("m", "LButton")
 Return
 *m up::
-    HandleMouseKeyUp("m", "LButton")
+    HandleKeyUp("m", "LButton")
 Return
 
-; ; -----------------------------
-; ; Scroll mappings (latched)
-; ; -----------------------------
-; *i::
-;     HandleScrollKey("i", "WheelDown")
-; Return
+; -----------------------------
+; Scroll mappings (latched)
+; -----------------------------
+*i::
+    HandleKeyDown("i", "WheelDown", true)
+Return
+*i up::
+    HandleKeyUp("i", "")
+Return
 
-; *o::
-;     HandleScrollKey("o", "WheelUp")
-; Return
+*o::
+    HandleKeyDown("o", "WheelUp", true)
+Return
+*o up::
+    HandleKeyUp("o", "")
+Return
 
 ; -----------------------------
 ; Helpers
 ; -----------------------------
-HandleMouseKeyDown(key, mouseBtn) {
+HandleKeyDown(key, mouseBtn, isScroll:=false) {
     global mappingActive, keyLatch, keyIsDown
 
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
@@ -93,13 +99,16 @@ HandleMouseKeyDown(key, mouseBtn) {
     keyLatch[key] := mappingActive
 
     if (mappingActive) {
-        Send, {%mouseBtn% Down}
+        if (mouseBtn != "") {
+            suffix := isScroll ? "" : "Down"
+            Send, {%mouseBtn% %suffix%}
+        }
     } else {
         Send, {%key% Down}
     }
 }
 
-HandleMouseKeyUp(key, mouseBtn) {
+HandleKeyUp(key, mouseBtn, isScroll:=false) {
     global keyLatch, keyIsDown
 
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
@@ -111,7 +120,10 @@ HandleMouseKeyUp(key, mouseBtn) {
     keyIsDown[key] := false
 
     if (isKeyMapped) {
-        Send, {%mouseBtn% Up}
+        if (mouseBtn != "") {
+            suffix := isScroll ? "" : "Up"
+            Send, {%mouseBtn% %suffix%}
+        }
     } else {
         Send, {%key% Up}
     }
