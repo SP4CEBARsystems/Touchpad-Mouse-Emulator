@@ -68,18 +68,33 @@ Return
 ; Helpers
 ; -----------------------------
 HandleMouseKey(key, mouseBtn) {
-    global mappingActive, keyLatch
+    global mappingActive, keyLatch, keyIsDown
 
-    if GetKeyState(key, "P") {
-        ; Key down → latch state
+    isPhysDown := GetKeyState(key, "P")
+    if (isPhysDown) {
+
+        ; Suppress repeat Down
+        if (keyIsDown.HasKey(key) && keyIsDown[key])
+            return
+
+        keyIsDown[key] := true
+
+        ; Latch mapping state
         keyLatch[key] := mappingActive
+
         if (mappingActive) {
             Send, {%mouseBtn% Down}
         } else {
             Send, {%key% Down}
         }
     } else {
-        ; Key up → follow latched state
+
+        ; Suppress repeat Up / stray Up
+        if (!keyIsDown.HasKey(key) || !keyIsDown[key])
+            return
+
+        keyIsDown[key] := false
+
         if (keyLatch.HasKey(key) && keyLatch[key]) {
             Send, {%mouseBtn% Up}
         } else {
