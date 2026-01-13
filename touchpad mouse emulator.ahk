@@ -4,11 +4,6 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; -----------------------------
-; Global mapping state
-; -----------------------------
-mappingActive := true
-
-; -----------------------------
 ; Per-key latch storage
 ; -----------------------------
 keyLatch := {}
@@ -71,17 +66,8 @@ return
 ~/::                           ; "/" to chat
 ~LWin::                        ; "left windows" to open a program
 ~BackSpace::                   ; "backspace" to remove text
-    mappingActive := false
-Return
-
-;not typing (turn this hotkey on)
-~Esc::                         ; "escape" to exit chat
-~Enter::                       ; "enter" to send a chat message or select a program
-    mappingActive := true
-Return
-
-RAlt::
-    mappingActive := !mappingActive
+    lastMoveTick += holdTime
+    movementActive := false
 Return
 
 ; -----------------------------
@@ -136,10 +122,9 @@ Return
 ; Helpers
 ; -----------------------------
 HandleKeyDown(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
-    global mappingActive, movementActive, keyLatch, keyIsDown
-    isActive := mappingActive && movementActive
+    global movementActive, keyLatch, keyIsDown
+    isActive := movementActive
     isKeyDown := keyIsDown.HasKey(key) && keyIsDown[key]
-    ; isActive := mappingActive
 
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
 
