@@ -36,7 +36,7 @@ DetectMovement:
 
     dx := x - lastX
     dy := y - lastY
-    holdTime := 1000
+    holdTime := 2000
 
     if (dx != 0 or dy != 0)
     {
