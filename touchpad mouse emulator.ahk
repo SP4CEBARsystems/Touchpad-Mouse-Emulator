@@ -76,7 +76,7 @@ HandleMouseKeyDown(key, mouseBtn) {
     global mappingActive, keyLatch, keyIsDown
 
     ; Suppress auto-repeat
-    if (mappingActive && keyIsDown.HasKey(key) && keyIsDown[key])
+    if ((keyLatch.HasKey(key) && keyLatch[key]) && (keyIsDown.HasKey(key) && keyIsDown[key]))
         return
 
     keyIsDown[key] := true
@@ -93,7 +93,7 @@ HandleMouseKeyUp(key, mouseBtn) {
     global keyLatch, keyIsDown
 
     ; Suppress stray Up
-    if (mappingActive && (!keyIsDown.HasKey(key) || !keyIsDown[key]))
+    if ((keyLatch.HasKey(key) && keyLatch[key]) && (!keyIsDown.HasKey(key) || !keyIsDown[key]))
         return
 
     keyIsDown[key] := false
