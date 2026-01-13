@@ -41,22 +41,30 @@ Return
 *j::
     HandleMouseKeyDown("j", "LButton")
 Return
-
 *j up::
     HandleMouseKeyUp("j", "LButton")
 Return
 
-; *k::
-;     HandleMouseKey("k", "MButton")
-; Return
+*k::
+    HandleMouseKeyDown("k", "MButton")
+Return
+*k up::
+    HandleMouseKeyUp("k", "MButton")
+Return
 
-; *l::
-;     HandleMouseKey("l", "RButton")
-; Return
+*l::
+    HandleMouseKeyDown("l", "RButton")
+Return
+*l up::
+    HandleMouseKeyUp("l", "RButton")
+Return
 
-; *m::
-;     HandleMouseKey("m", "LButton")
-; Return
+*m::
+    HandleMouseKeyDown("m", "LButton")
+Return
+*m up::
+    HandleMouseKeyUp("m", "LButton")
+Return
 
 ; ; -----------------------------
 ; ; Scroll mappings (latched)
@@ -75,8 +83,10 @@ Return
 HandleMouseKeyDown(key, mouseBtn) {
     global mappingActive, keyLatch, keyIsDown
 
+    isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
+
     ; Suppress auto-repeat
-    if ((keyLatch.HasKey(key) && keyLatch[key]) && (keyIsDown.HasKey(key) && keyIsDown[key]))
+    if (isKeyMapped && keyIsDown.HasKey(key) && keyIsDown[key])
         return
 
     keyIsDown[key] := true
@@ -92,13 +102,15 @@ HandleMouseKeyDown(key, mouseBtn) {
 HandleMouseKeyUp(key, mouseBtn) {
     global keyLatch, keyIsDown
 
+    isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
+
     ; Suppress stray Up
-    if ((keyLatch.HasKey(key) && keyLatch[key]) && (!keyIsDown.HasKey(key) || !keyIsDown[key]))
+    if (isKeyMapped && (!keyIsDown.HasKey(key) || !keyIsDown[key]))
         return
 
     keyIsDown[key] := false
 
-    if (keyLatch.HasKey(key) && keyLatch[key]) {
+    if (isKeyMapped) {
         Send, {%mouseBtn% Up}
     } else {
         Send, {%key% Up}
