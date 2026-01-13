@@ -9,6 +9,12 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 mappingActive := true
 
 ; -----------------------------
+; Per-key latch storage
+; -----------------------------
+keyLatch := {}
+keyIsDown := {}
+
+; -----------------------------
 ; Switching logic
 ; -----------------------------
 
@@ -30,79 +36,77 @@ RAlt::
 Return
 
 ; -----------------------------
-; Per-key latch storage
-; -----------------------------
-keyLatch := {}
-
-; -----------------------------
 ; Mouse button mappings (latched)
 ; -----------------------------
 *j::
-    HandleMouseKey("j", "LButton")
+    HandleMouseKeyDown("j", "LButton")
 Return
 
-*k::
-    HandleMouseKey("k", "MButton")
+*j up::
+    HandleMouseKeyUp("j", "LButton")
 Return
 
-*l::
-    HandleMouseKey("l", "RButton")
-Return
+; *k::
+;     HandleMouseKey("k", "MButton")
+; Return
 
-*m::
-    HandleMouseKey("m", "LButton")
-Return
+; *l::
+;     HandleMouseKey("l", "RButton")
+; Return
 
-; -----------------------------
-; Scroll mappings (latched)
-; -----------------------------
-*i::
-    HandleScrollKey("i", "WheelDown")
-Return
+; *m::
+;     HandleMouseKey("m", "LButton")
+; Return
 
-*o::
-    HandleScrollKey("o", "WheelUp")
-Return
+; ; -----------------------------
+; ; Scroll mappings (latched)
+; ; -----------------------------
+; *i::
+;     HandleScrollKey("i", "WheelDown")
+; Return
+
+; *o::
+;     HandleScrollKey("o", "WheelUp")
+; Return
 
 ; -----------------------------
 ; Helpers
 ; -----------------------------
-HandleMouseKey(key, mouseBtn) {
+HandleMouseKeyDown(key, mouseBtn) {
     global mappingActive, keyLatch, keyIsDown
 
-    isPhysDown := GetKeyState(key, "P")
-    if (isPhysDown) {
+    ; Suppress auto-repeat
+    if (mappingActive && keyIsDown.HasKey(key) && keyIsDown[key])
+        return
 
-        ; Suppress repeat Down
-        if (keyIsDown.HasKey(key) && keyIsDown[key])
-            return
+    keyIsDown[key] := true
+    keyLatch[key] := mappingActive
 
-        keyIsDown[key] := true
-
-        ; Latch mapping state
-        keyLatch[key] := mappingActive
-
-        if (mappingActive) {
-            Send, {%mouseBtn% Down}
-        } else {
-            Send, {%key% Down}
-        }
+    if (mappingActive) {
+        Send, {%mouseBtn% Down}
     } else {
-
-        ; Suppress repeat Up / stray Up
-        if (!keyIsDown.HasKey(key) || !keyIsDown[key])
-            return
-
-        keyIsDown[key] := false
-
-        if (keyLatch.HasKey(key) && keyLatch[key]) {
-            Send, {%mouseBtn% Up}
-        } else {
-            Send, {%key% Up}
-        }
-        keyLatch.Delete(key)
+        Send, {%key% Down}
     }
 }
+
+HandleMouseKeyUp(key, mouseBtn) {
+    global keyLatch, keyIsDown
+
+    ; Suppress stray Up
+    if (mappingActive && (!keyIsDown.HasKey(key) || !keyIsDown[key]))
+        return
+
+    keyIsDown[key] := false
+
+    if (keyLatch.HasKey(key) && keyLatch[key]) {
+        Send, {%mouseBtn% Up}
+    } else {
+        Send, {%key% Up}
+    }
+    keyLatch.Delete(key)
+}
+
+; TODO oop method get is key active
 
 HandleScrollKey(key, wheelDir) {
     global mappingActive, keyLatch
