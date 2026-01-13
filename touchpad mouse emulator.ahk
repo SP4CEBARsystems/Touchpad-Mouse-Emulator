@@ -98,14 +98,10 @@ HandleKeyDown(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
     keyIsDown[key] := true
     keyLatch[key] := mappingActive
 
-    modifiers := GetActiveModifiers()
     if (mappingActive) {
-        if (mouseBtn != "") {
-            suffix := isScroll ? "" : "Down"
-            Send, %modifiers%{%mouseBtn% %suffix%}
-        }
+        sendKey(mouseBtn, false, isScroll)
     } else {
-        Send, %modifiers%{%key% Down}
+        sendKey(key, false)
     }
 }
 
@@ -120,16 +116,33 @@ HandleKeyUp(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
 
     keyIsDown[key] := false
 
-    modifiers := GetActiveModifiers()
     if (isKeyMapped) {
-        if (mouseBtn != "") {
-            suffix := isScroll ? "" : "Up"
-            Send, %modifiers%{%mouseBtn% %suffix%}
-        }
+        sendKey(mouseBtn, true, isScroll)
     } else {
-        Send, %modifiers%{%key% Up}
+        sendKey(key, true)
     }
     keyLatch.Delete(key)
+}
+
+sendKey(action, isKeyUp:=false, isScroll:=false) {
+    if (action = "") {
+        return
+    }
+    suffix := getKeySuffix(isKeyUp, isScroll)
+    modifiers := GetActiveModifiers()
+    Send, %modifiers%{%action%%suffix%}
+}
+
+getKeySuffix(isKeyUp:=false, isScroll:=false) {
+    if (isScroll) {
+        return ""
+    } else if (isKeyUp) {
+        return " Up"
+    } else {
+        return " Down"
+    }
+    ; keyType := isKeyUp ? " Up" : " Down"
+    ; suffix := isScroll ? "" : keyType
 }
 
 ; TODO oop method get is key active
