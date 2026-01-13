@@ -14,6 +14,55 @@ mappingActive := true
 keyLatch := {}
 keyIsDown := {}
 
+CoordMode, Mouse, Screen
+SetBatchLines -1
+SetWinDelay, 0
+
+global lastX := ""
+global lastY := ""
+global lastMoveTick := 0
+global movementActive := false
+
+SetTimer, DetectMovement, 1
+
+;=========================
+;  MOUSE MOVEMENT WATCHER
+;=========================
+DetectMovement:
+    MouseGetPos, x, y
+
+    if (lastX = "")
+    {
+        lastX := x
+        lastY := y
+        lastMoveTick := A_TickCount
+        return
+    }
+
+    dx := x - lastX
+    dy := y - lastY
+    holdTime := 1000
+
+    if (dx != 0 or dy != 0)
+    {
+        lastMoveTick := A_TickCount
+        if (!movementActive)
+            movementActive := true
+    }
+    else
+    {
+        if (movementActive && (A_TickCount - lastMoveTick > holdTime))
+            movementActive := false
+    }
+
+    lastX := x
+    lastY := y
+return
+
+;===========================================
+;       EXISTING SCRIPT — UNCHANGED
+;===========================================
+
 ; -----------------------------
 ; Switching logic
 ; -----------------------------
@@ -87,9 +136,11 @@ Return
 ; Helpers
 ; -----------------------------
 HandleKeyDown(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
-    global mappingActive, keyLatch, keyIsDown
-    isActive := mappingActive
+    global mappingActive, movementActive, keyLatch, keyIsDown
+    isActive := mappingActive && movementActive
     isKeyDown := keyIsDown.HasKey(key) && keyIsDown[key]
+    ; isActive := mappingActive
+
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
 
     ; Suppress auto-repeat
