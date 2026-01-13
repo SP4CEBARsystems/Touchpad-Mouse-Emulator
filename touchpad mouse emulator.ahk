@@ -138,17 +138,22 @@ Return
 HandleKeyDown(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
     global mappingActive, movementActive, keyLatch, keyIsDown
     isActive := mappingActive && movementActive
+    isKeyDown := keyIsDown.HasKey(key) && keyIsDown[key]
+    ; isActive := mappingActive
 
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
 
     ; Suppress auto-repeat
-    if (isRapidSupressed && isKeyMapped && keyIsDown.HasKey(key) && keyIsDown[key])
+    if (isRapidSupressed && isKeyMapped && isKeyDown)
         return
 
+    if (!isKeyDown) {
+        keyLatch[key] := isActive
+        isKeyMapped := isActive
+    }
     keyIsDown[key] := true
-    keyLatch[key] := isActive
 
-    if (isActive) {
+    if (isKeyMapped) {
         sendKey(mouseBtn, false, isScroll)
     } else {
         sendKey(key, false)
@@ -159,9 +164,10 @@ HandleKeyUp(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
     global keyLatch, keyIsDown
 
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
+    isKeyDown := keyIsDown.HasKey(key) && keyIsDown[key]
 
     ; Suppress stray Up
-    if (isRapidSupressed && isKeyMapped && (!keyIsDown.HasKey(key) || !keyIsDown[key]))
+    if (isRapidSupressed && isKeyMapped && !isKeyDown)
         return
 
     keyIsDown[key] := false
