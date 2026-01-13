@@ -141,21 +141,6 @@ getKeySuffix(isKeyUp:=false, isScroll:=false) {
     } else {
         return " Down"
     }
-    ; keyType := isKeyUp ? " Up" : " Down"
-    ; suffix := isScroll ? "" : keyType
-}
-
-; TODO oop method get is key active
-
-HandleScrollKey(key, wheelDir) {
-    global mappingActive, keyLatch
-
-    if GetKeyState(key, "P") {
-        keyLatch[key] := mappingActive
-        if (mappingActive) {
-            Send, % GetActiveModifiers() . "{" . wheelDir . "}"
-        }
-    }
 }
 
 GetActiveModifiers() {
