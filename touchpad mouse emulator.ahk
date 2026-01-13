@@ -70,14 +70,14 @@ Return
 ; Scroll mappings (latched)
 ; -----------------------------
 *i::
-    HandleKeyDown("i", "WheelDown", true)
+    HandleKeyDown("i", "WheelDown", true, false)
 Return
 *i up::
     HandleKeyUp("i", "")
 Return
 
 *o::
-    HandleKeyDown("o", "WheelUp", true)
+    HandleKeyDown("o", "WheelUp", true, false)
 Return
 *o up::
     HandleKeyUp("o", "")
@@ -86,13 +86,13 @@ Return
 ; -----------------------------
 ; Helpers
 ; -----------------------------
-HandleKeyDown(key, mouseBtn, isScroll:=false) {
+HandleKeyDown(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
     global mappingActive, keyLatch, keyIsDown
 
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
 
     ; Suppress auto-repeat
-    if (isKeyMapped && keyIsDown.HasKey(key) && keyIsDown[key])
+    if (isRapidSupressed && isKeyMapped && keyIsDown.HasKey(key) && keyIsDown[key])
         return
 
     keyIsDown[key] := true
@@ -108,13 +108,13 @@ HandleKeyDown(key, mouseBtn, isScroll:=false) {
     }
 }
 
-HandleKeyUp(key, mouseBtn, isScroll:=false) {
+HandleKeyUp(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
     global keyLatch, keyIsDown
 
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
 
     ; Suppress stray Up
-    if (isKeyMapped && (!keyIsDown.HasKey(key) || !keyIsDown[key]))
+    if (isRapidSupressed && isKeyMapped && (!keyIsDown.HasKey(key) || !keyIsDown[key]))
         return
 
     keyIsDown[key] := false
