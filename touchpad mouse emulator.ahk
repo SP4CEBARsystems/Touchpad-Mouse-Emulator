@@ -14,10 +14,6 @@ mappingActive := true
 keyLatch := {}
 keyIsDown := {}
 
-; -----------------------------
-; Switching logic
-; -----------------------------
-
 CoordMode, Mouse, Screen
 SetBatchLines -1
 SetWinDelay, 0
@@ -66,6 +62,10 @@ return
 ;===========================================
 ;       EXISTING SCRIPT — UNCHANGED
 ;===========================================
+
+; -----------------------------
+; Switching logic
+; -----------------------------
 
 ;typing (turn this hotkey off)
 ~/::                           ; "/" to chat
@@ -136,7 +136,8 @@ Return
 ; Helpers
 ; -----------------------------
 HandleKeyDown(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
-    global mappingActive, keyLatch, keyIsDown
+    global mappingActive, movementActive, keyLatch, keyIsDown
+    isActive := mappingActive || movementActive
 
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
 
@@ -145,9 +146,9 @@ HandleKeyDown(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
         return
 
     keyIsDown[key] := true
-    keyLatch[key] := mappingActive
+    keyLatch[key] := isActive
 
-    if (mappingActive) {
+    if (isActive) {
         sendKey(mouseBtn, false, isScroll)
     } else {
         sendKey(key, false)
