@@ -98,13 +98,14 @@ HandleKeyDown(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
     keyIsDown[key] := true
     keyLatch[key] := mappingActive
 
+    modifiers := GetActiveModifiers()
     if (mappingActive) {
         if (mouseBtn != "") {
             suffix := isScroll ? "" : "Down"
-            Send, {%mouseBtn% %suffix%}
+            Send, %modifiers%{%mouseBtn% %suffix%}
         }
     } else {
-        Send, {%key% Down}
+        Send, %modifiers%{%key% Down}
     }
 }
 
@@ -119,13 +120,14 @@ HandleKeyUp(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
 
     keyIsDown[key] := false
 
+    modifiers := GetActiveModifiers()
     if (isKeyMapped) {
         if (mouseBtn != "") {
             suffix := isScroll ? "" : "Up"
-            Send, {%mouseBtn% %suffix%}
+            Send, %modifiers%{%mouseBtn% %suffix%}
         }
     } else {
-        Send, {%key% Up}
+        Send, %modifiers%{%key% Up}
     }
     keyLatch.Delete(key)
 }
