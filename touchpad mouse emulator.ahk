@@ -137,7 +137,7 @@ Return
 ; -----------------------------
 HandleKeyDown(key, mouseBtn, isScroll:=false, isRapidSupressed:=true) {
     global mappingActive, movementActive, keyLatch, keyIsDown
-    isActive := mappingActive || movementActive
+    isActive := mappingActive && movementActive
 
     isKeyMapped := keyLatch.HasKey(key) && keyLatch[key]
 
