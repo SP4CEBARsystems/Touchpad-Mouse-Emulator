@@ -9,26 +9,23 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 mappingActive := true
 
 ; -----------------------------
-; Suspend logic
+; Switching logic
 ; -----------------------------
 
 ;typing (turn this hotkey off)
 ~/::                           ; "/" to chat
 ~LWin::                        ; "left windows" to open a program
 ~BackSpace::                   ; "backspace" to remove text
-    Suspend, On
     mappingActive := false
 Return
 
 ;not typing (turn this hotkey on)
 ~Esc::                         ; "escape" to exit chat
 ~Enter::                       ; "enter" to send a chat message or select a program
-    Suspend, Off
     mappingActive := true
 Return
 
 RAlt::
-    Suspend, Toggle
     mappingActive := !mappingActive
 Return
 
@@ -78,11 +75,15 @@ HandleMouseKey(key, mouseBtn) {
         keyLatch[key] := mappingActive
         if (mappingActive) {
             Send, {%mouseBtn% Down}
+        } else {
+            Send, {%key% Down}
         }
     } else {
         ; Key up → follow latched state
         if (keyLatch.HasKey(key) && keyLatch[key]) {
             Send, {%mouseBtn% Up}
+        } else {
+            Send, {%key% Up}
         }
         keyLatch.Delete(key)
     }
