@@ -67,6 +67,30 @@ return
 Return
 
 ; -----------------------------
+; Block physical Mouse Buttons (latched)
+; -----------------------------
+*LButton::
+    HandleKeyDown("LButton", "")
+Return
+*LButton up::
+    HandleKeyUp("LButton", "")
+Return
+
+*MButton::
+    HandleKeyDown("MButton", "")
+Return
+*MButton up::
+    HandleKeyUp("MButton", "")
+Return
+
+*RButton::
+    HandleKeyDown("RButton", "")
+Return
+*RButton up::
+    HandleKeyUp("RButton", "")
+Return
+
+; -----------------------------
 ; Mouse button mappings (latched)
 ; -----------------------------
 *j::
