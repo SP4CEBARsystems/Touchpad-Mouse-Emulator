@@ -15,7 +15,12 @@ The `/` key is used to disable this macro (to be able to type) and the `escape` 
 I have released [executables](https://github.com/SP4CEBARsystems/Touchpad-Mouse-Emulator/releases) for this macro that you can download and run if you trust me. I have to note that most AHK macros are flagged as trojans by some security vendors on [VirusTotal](https://www.virustotal.com), [here is the VirusTotal report for this executable](https://www.virustotal.com/gui/file/61a640de9c9ea98182e44c6b7d0b42dacffd309f34918fbc3ade055e33ad2f47?nocache=1). If you don't trust me, [review the code](https://github.com/SP4CEBARsystems/Touchpad-Mouse-Emulator/blob/main/touchpad%20mouse%20emulator.ahk), [download AutoHotKey V1](https://www.autohotkey.com/download/ahk-install.exe), and [compile your own executable](https://www.autohotkey.com/docs/v1/Scripts.htm#ahk2exe-run). If you don't trust AutoHotKey check out [this report](https://safeweb.norton.com/report/show?url=autohotkey.com%2Fdownload).
 
 ## Stopping The Macro
-When an AHK macro is running, you can stop it from its tray icon.
+When an AHK macro is running, you can stop it from its tray icon:
+1. Left-click the up arrow on the left of your Windows (10) task bar.
+   - With this macro active you should use the `J` key to left click.
+2. Find a green square with a white "H" symbol on it and Right click it.
+   - With this macro active you should use the `L` key to right click.
+3. A menu with three options is shown and this macro is now suspended, click "Exit" using your normal left mouse key to stop the macro.
 
 ## Controls
 
