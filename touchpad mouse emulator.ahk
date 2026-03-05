@@ -76,50 +76,26 @@ Return
 ; -----------------------------
 ; Mouse button mappings (latched)
 ; -----------------------------
-*j::
-    HandleKeyDown("j", "LButton")
-Return
-*j up::
-    HandleKeyUp("j", "LButton")
-Return
+*j::HandleKeyDown("j", "LButton")
+*j up::HandleKeyUp("j", "LButton")
 
-*k::
-    HandleKeyDown("k", "MButton")
-Return
-*k up::
-    HandleKeyUp("k", "MButton")
-Return
+*k::HandleKeyDown("k", "MButton")
+*k up::HandleKeyUp("k", "MButton")
 
-*l::
-    HandleKeyDown("l", "RButton")
-Return
-*l up::
-    HandleKeyUp("l", "RButton")
-Return
+*l::HandleKeyDown("l", "RButton")
+*l up::HandleKeyUp("l", "RButton")
 
-*m::
-    HandleKeyDown("m", "LButton")
-Return
-*m up::
-    HandleKeyUp("m", "LButton")
-Return
+*m::HandleKeyDown("m", "LButton")
+*m up::HandleKeyUp("m", "LButton")
 
 ; -----------------------------
 ; Scroll mappings (latched)
 ; -----------------------------
-*i::
-    HandleKeyDown("i", "WheelDown", true, false)
-Return
-*i up::
-    HandleKeyUp("i", "")
-Return
+*i::HandleKeyDown("i", "WheelDown", true, false)
+*i up::HandleKeyUp("i", "")
 
-*o::
-    HandleKeyDown("o", "WheelUp", true, false)
-Return
-*o up::
-    HandleKeyUp("o", "")
-Return
+*o::HandleKeyDown("o", "WheelUp", true, false)
+*o up::HandleKeyUp("o", "")
 
 ; -----------------------------
 ; Helpers
