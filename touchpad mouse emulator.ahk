@@ -70,13 +70,8 @@ Return
 ; Block physical Mouse Buttons (latched)
 ; -----------------------------
 *LButton::Return
-*LButton up::Return
-
 *MButton::Return
-*MButton up::Return
-
 *RButton::Return
-*RButton up::Return
 
 ; -----------------------------
 ; Mouse button mappings (latched)
